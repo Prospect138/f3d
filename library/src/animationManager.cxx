@@ -10,7 +10,6 @@
 #include "vtkF3DMetaImporter.h"
 #include "vtkF3DRenderer.h"
 
-#include <variant>
 #include <vtkDoubleArray.h>
 #include <vtkProgressBarRepresentation.h>
 #include <vtkRenderWindow.h>
