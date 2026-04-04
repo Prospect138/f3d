@@ -69,7 +69,6 @@ void animationManager::Initialize()
     progressRep->SetPosition(0.0, 0.0);
     progressRep->SetPosition2(1.0, 0.0);
     progressRep->SetMinimumSize(0, 5);
-    std::string animationProgress = "ui.animation_progress_color";
     f3d::color_t color = this->Options.ui.animation_progress_color;
     progressRep->SetProgressBarColor(color.r(), color.g(), color.b());
     progressRep->DrawBackgroundOff();

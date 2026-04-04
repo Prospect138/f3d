@@ -119,7 +119,6 @@ public:
     callbackData.widget = progressWidget;
     if (this->Options.ui.loader_progress && this->Interactor)
     {
-      std::string loaderProgress = "ui.loader_progress_color";
       f3d::color_t color = this->Options.ui.loader_progress_color;
       scene_impl::internals::CreateProgressRepresentationAndCallback(
         &callbackData, this->MetaImporter, this->Interactor, color);
