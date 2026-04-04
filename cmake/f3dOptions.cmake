@@ -162,11 +162,11 @@ function(_parse_json_option _top_json)
 
        if(_default_value_error STREQUAL "NOTFOUND")
          # Use default_value
-         set(_optional_default_value_initialize "parse<${_option_actual_type}>(\"${_option_default_value}\")")
+         set(_optional_default_value_initialize "options::parse<${_option_actual_type}>(\"${_option_default_value}\")")
          string(APPEND _options_struct "${_option_indent}  ${_option_deprecated_string}${_option_actual_type} ${_member_name} = ${_optional_default_value_initialize};\n")
          set(_optional_getter "")
          list(APPEND _options_is_optional "if (name == \"${_option_name}\") return false")
-         list(APPEND _options_reset "if (name == \"${_option_name}\") opt.${_option_name} = options_tools::parse<${_option_actual_type}>(\"${_option_default_value}\")")
+         list(APPEND _options_reset "if (name == \"${_option_name}\") opt.${_option_name} = ${_optional_default_value_initialize}")
        else()
          # No default_value, it is an std::optional
          string(APPEND _options_struct "${_option_indent}  ${_option_deprecated_string}std::optional<${_option_actual_type}> ${_member_name};\n")

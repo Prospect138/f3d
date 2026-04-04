@@ -275,21 +275,23 @@
     },
     "font_color": {
       "type": "color",
-      "default_value": "0.957,0.957,0.957"
+      "default_value": "f3d_white"
     },
     "loader_progress": {
       "type": "bool",
       "default_value": "false"
     },
     "loader_progress_color": {
-      "type": "color"
+      "type": "color",
+      "default_value": "f3d_yellow"
     },
     "animation_progress": {
       "type": "bool",
       "default_value": "false"
     },
     "animation_progress_color": {
-      "type": "color"
+      "type": "color",
+      "default_value": "f3d_blue"
     },
     "dpi_aware": {
       "type": "bool",

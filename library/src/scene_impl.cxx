@@ -119,15 +119,16 @@ public:
     callbackData.widget = progressWidget;
     if (this->Options.ui.loader_progress && this->Interactor)
     {
+      std::string loaderProgress = "ui.loader_progress_color";
       f3d::color_t color;
-      if (!this->Options.ui.loader_progress_color.has_value())
+      if (!this->Options.isOptional(loaderProgress) && std::holds_alternative<std::vector<double>>(this->Options.get(loaderProgress)))
       {
-        const auto [r, g, b] = F3DStyle::GetF3DYellow();
-        color = color_t(r, g, b);
+        color = f3d::color_t(std::get<std::vector<double>>(this->Options.get(loaderProgress)));
       }
       else
       {
-        color = this->Options.ui.loader_progress_color.value();
+        const auto [r, g, b] = F3DStyle::GetF3DYellow();
+        color = color_t(r, g, b);
       }
       scene_impl::internals::CreateProgressRepresentationAndCallback(
         &callbackData, this->MetaImporter, this->Interactor, color);

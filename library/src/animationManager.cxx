@@ -10,6 +10,7 @@
 #include "vtkF3DMetaImporter.h"
 #include "vtkF3DRenderer.h"
 
+#include <variant>
 #include <vtkDoubleArray.h>
 #include <vtkProgressBarRepresentation.h>
 #include <vtkRenderWindow.h>
@@ -69,15 +70,16 @@ void animationManager::Initialize()
     progressRep->SetPosition(0.0, 0.0);
     progressRep->SetPosition2(1.0, 0.0);
     progressRep->SetMinimumSize(0, 5);
+    std::string animationProgress = "ui.animation_progress_color";
     f3d::color_t color;
-    if (!this->Options.ui.animation_progress_color.has_value())
+    if (!this->Options.isOptional(animationProgress) && std::holds_alternative<std::vector<double>>(this->Options.get(animationProgress)))
     {
-      const auto [r, g, b] = F3DStyle::GetF3DBlue();
-      color = color_t(r, g, b);
+      color = f3d::color_t{std::get<std::vector<double>>(this->Options.get(animationProgress))};
     }
     else
     {
-      color = this->Options.ui.animation_progress_color.value();
+      const auto [r, g, b] = F3DStyle::GetF3DBlue();
+      color = color_t(r, g, b);
     }
     progressRep->SetProgressBarColor(color.r(), color.g(), color.b());
     progressRep->DrawBackgroundOff();
