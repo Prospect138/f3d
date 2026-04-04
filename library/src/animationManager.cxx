@@ -70,16 +70,7 @@ void animationManager::Initialize()
     progressRep->SetPosition2(1.0, 0.0);
     progressRep->SetMinimumSize(0, 5);
     std::string animationProgress = "ui.animation_progress_color";
-    f3d::color_t color;
-    if (!this->Options.isOptional(animationProgress) && std::holds_alternative<std::vector<double>>(this->Options.get(animationProgress)))
-    {
-      color = f3d::color_t{std::get<std::vector<double>>(this->Options.get(animationProgress))};
-    }
-    else
-    {
-      const auto [r, g, b] = F3DStyle::GetF3DBlue();
-      color = color_t(r, g, b);
-    }
+    f3d::color_t color = this->Options.ui.animation_progress_color;
     progressRep->SetProgressBarColor(color.r(), color.g(), color.b());
     progressRep->DrawBackgroundOff();
     progressRep->DragableOff();
@@ -583,7 +574,7 @@ void animationManager::PrepareForAnimationIndices()
 
       // Accumulate timesteps to avoid overwrite
       for (vtkIdType stepIndex = 0; stepIndex < this->AnimationTimeSteps->GetNumberOfTuples();
-           stepIndex++)
+        stepIndex++)
       {
         accumulatedTimeSteps.emplace(this->AnimationTimeSteps->GetValue(stepIndex));
       }
