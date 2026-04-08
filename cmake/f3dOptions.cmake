@@ -153,10 +153,11 @@ function(_parse_json_option _top_json)
          set(_option_variant_type "std::vector<double>")
        endif()
 
-       # Flag if we need do parse type
+       # Flag if need to parse type
        set(_literal_types "int" "bool" "double")
        set(_is_literal_type FALSE)
-       if (_option_type IN_LIST _literal_types)
+       list(FIND _literal_type "${_option_type}" _index)
+       if (_index GREATER -1)
          set(_is_literal_type TRUE)
        endif()
 
