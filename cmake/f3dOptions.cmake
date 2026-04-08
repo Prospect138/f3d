@@ -121,7 +121,7 @@ function(_parse_json_option _top_json)
        if(_option_type STREQUAL "int_vector")
          set(_option_actual_type "std::vector<int>")
          set(_option_variant_type "std::vector<int>")
-      elseif(_option_type STREQUAL "double_vector")
+       elseif(_option_type STREQUAL "double_vector")
          set(_option_actual_type "std::vector<double>")
          set(_option_variant_type "std::vector<double>")
        elseif(_option_type STREQUAL "string")
@@ -153,6 +153,13 @@ function(_parse_json_option _top_json)
          set(_option_variant_type "std::vector<double>")
        endif()
 
+       # Flag if we need do parse type
+       set(_literal_types "int" "bool" "double")
+       set(_is_literal_type FALSE)
+       if (_option_type IN_LIST _literal_types)
+         set(_is_literal_type TRUE)
+       endif()
+
        # Add option to struct and methods
 
        set(_option_deprecated_string "")
@@ -162,7 +169,11 @@ function(_parse_json_option _top_json)
 
        if(_default_value_error STREQUAL "NOTFOUND")
          # Use default_value
-         set(_optional_default_value_initialize "options::parse<${_option_actual_type}>(\"${_option_default_value}\")")
+         if (_is_literal_type)
+           set(_optional_default_value_initialize "${_option_default_value}")
+         else()
+           set(_optional_default_value_initialize "options::parse<${_option_actual_type}>(\"${_option_default_value}\")")
+         endif()
          string(APPEND _options_struct "${_option_indent}  ${_option_deprecated_string}${_option_actual_type} ${_member_name} = ${_optional_default_value_initialize};\n")
          set(_optional_getter "")
          list(APPEND _options_is_optional "if (name == \"${_option_name}\") return false")
