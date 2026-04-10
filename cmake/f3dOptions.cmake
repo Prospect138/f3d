@@ -104,8 +104,15 @@ function(_parse_json_option _top_json)
     if(_option_type_error STREQUAL "NOTFOUND" AND ${_option_type_type} STREQUAL "STRING")
        # Leaf option found!
 
-       # Recover default_value if any
+       # Recover default_value or parsed_default_value if any
        string(JSON _option_default_value ERROR_VARIABLE _default_value_error GET ${_cur_json} "default_value")
+       set(_is_parsable_type FALSE)
+       if (NOT _default_value_error STREQUAL "NOTFOUND")
+         string(JSON _option_default_value ERROR_VARIABLE _default_value_error GET ${_cur_json} "parsed_default_value")
+         if (_default_value_error STREQUAL "NOTFOUND")
+           set(_is_parsable_type TRUE)
+         endif()
+       endif()
 
        # Recover deprecated if any
        string(JSON _option_deprecated ERROR_VARIABLE _deprecated_error GET ${_cur_json} "deprecated")
@@ -171,14 +178,6 @@ function(_parse_json_option _top_json)
          set(_option_variant_type "std::vector<double>")
          set(_option_default_value_start "{")
          set(_option_default_value_end "}")
-       endif()
-
-       # Flag if need to parse type
-       set(_parsable_types "color")
-       set(_is_parsable_type FALSE)
-       list(FIND _parsable_types "${_option_type}" _index)
-       if (_index GREATER -1)
-         set(_is_parsable_type TRUE)
        endif()
 
        # Add option to struct and methods

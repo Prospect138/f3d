@@ -191,15 +191,15 @@
     },
     "x_color": {
       "type": "color",
-      "default_value": "f3d_red"
+      "parsed_default_value": "f3d_red"
     },
     "y_color": {
       "type": "color",
-      "default_value": "f3d_green"
+      "parsed_default_value": "f3d_green"
     },
     "z_color": {
       "type": "color",
-      "default_value": "f3d_blue"
+      "parsed_default_value": "f3d_blue"
     },
     "scalar_bar": {
       "type": "bool",
@@ -275,7 +275,7 @@
     },
     "font_color": {
       "type": "color",
-      "default_value": "f3d_white"
+      "parsed_default_value": "f3d_white"
     },
     "loader_progress": {
       "type": "bool",
@@ -283,7 +283,7 @@
     },
     "loader_progress_color": {
       "type": "color",
-      "default_value": "f3d_yellow"
+      "parsed_default_value": "f3d_yellow"
     },
     "animation_progress": {
       "type": "bool",
@@ -291,7 +291,7 @@
     },
     "animation_progress_color": {
       "type": "color",
-      "default_value": "f3d_blue"
+      "parsed_default_value": "f3d_blue"
     },
     "dpi_aware": {
       "type": "bool",
